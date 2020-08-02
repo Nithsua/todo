@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:todo/repo/todorepo.dart';
+import 'package:todo/model/todo.dart';
+import 'package:todo/model/todocollection.dart';
 import 'package:todo/screens/homepage.dart';
+
+List<TodoCollection> todoCollectionList = [
+  TodoCollection(
+    title: 'Home',
+    todo: [
+      Todo(title: 'Hai'),
+      Todo(title: 'Hai'),
+      Todo(title: 'Hai'),
+    ],
+  ),
+  TodoCollection(
+    title: 'Work',
+    todo: [
+      Todo(title: 'Hai'),
+      Todo(title: 'Hai'),
+      Todo(title: 'Hai'),
+    ],
+  ),
+];
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final TodoRepo _todoRepo = TodoRepo();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +39,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.blue,
       ),
       home: HomePage(
-        todoCollectionList: _todoRepo.todoCollectionList,
+        todoCollectionList: todoCollectionList,
       ),
     );
   }
