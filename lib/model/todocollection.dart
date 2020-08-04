@@ -39,6 +39,7 @@ class TodoCollection extends ChangeNotifier {
 
   void updateTotalTasks() {
     _totalTasks = todo.length;
+    notifyListeners();
   }
 
   void updateDoneCount() {
@@ -56,12 +57,14 @@ class TodoCollection extends ChangeNotifier {
     Todo temp = Todo(title: 'title');
     _todo.add(temp);
     updateTotalTasks();
+    updateDoneCount();
     notifyListeners();
   }
 
   void deleteTodo(int index) {
     _todo.removeAt(index);
     updateTotalTasks();
+    updateDoneCount();
     notifyListeners();
   }
 }
