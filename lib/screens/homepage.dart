@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/model/todocollection.dart';
 import 'package:todo/screens/todopage.dart';
 import 'package:todo/widgets/progressbar.dart';
@@ -72,8 +73,9 @@ class HomePage extends StatelessWidget {
               child: PageView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: _todoCollectionList.length,
-                itemBuilder: (context, index) => TodoCollectionCardBuilder(
-                  todoCollection: _todoCollectionList[index],
+                itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                  value: _todoCollectionList[index],
+                  child: TodoCollectionCardBuilder(),
                 ),
               ),
             ),
@@ -85,70 +87,71 @@ class HomePage extends StatelessWidget {
 }
 
 class TodoCollectionCardBuilder extends StatelessWidget {
-  final TodoCollection _todoCollection;
-
-  TodoCollectionCardBuilder({@required TodoCollection todoCollection})
-      : assert(todoCollection != null),
-        _todoCollection = todoCollection;
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Container(
-        child: InkWell(
-          borderRadius: BorderRadius.circular(20.0),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TodoPage(
-                  todoCollection: _todoCollection,
+    return Consumer<TodoCollection>(
+      builder: (context, todoCollection, child) => Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20.0),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider.value(
+                    value: todoCollection,
+                    builder: (context, _) => TodoPage(
+                      todoCollection: todoCollection,
+                    ),
+                  ),
                 ),
-              ),
-            );
-          },
-          child: Hero(
-            tag: _todoCollection.title,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '12 Tasks',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              // fontSize: 30.0,
+              );
+            },
+            child: Hero(
+              tag: todoCollection.title,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '12 Tasks',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                // fontSize: 30.0,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            _todoCollection.title,
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 30.0,
+                            SizedBox(
+                              height: 10.0,
                             ),
-                          ),
-                        ],
+                            Text(
+                              todoCollection.title,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 30.0,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    ProgressBar(todoCollection: _todoCollection),
-                  ],
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      ProgressBar(
+                          totalTask: todoCollection.totalTasks,
+                          isDoneCount: todoCollection.isDoneCount),
+                    ],
+                  ),
                 ),
               ),
             ),
