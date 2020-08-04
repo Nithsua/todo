@@ -102,7 +102,7 @@ class TodoPage extends StatelessWidget {
                   size: 30.0,
                 ),
               ),
-              color: _todoCollection.colorSwatch,
+              color: _todoCollection.accentColor,
               onPressed: () {},
               shape: CircleBorder(),
             ),
