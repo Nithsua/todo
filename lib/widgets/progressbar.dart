@@ -19,7 +19,7 @@ class ProgressBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 10.0),
           child: Text(
-            '${(completed * 100).toStringAsPrecision(2)}%',
+            '${(completed * 100).floor()}%',
           ),
         ),
       ],
