@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/model/todo.dart';
 import 'package:todo/model/todocollection.dart';
 import 'package:todo/repo/todorepo.dart';
+import 'package:todo/screens/newtodo.dart';
 import 'package:todo/widgets/listtile.dart';
 import 'package:todo/widgets/progressbar.dart';
 
@@ -96,34 +96,29 @@ class TodoPage extends StatelessWidget {
               ),
             ],
           ),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: RaisedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                    SizedBox(width: 5.0),
-                    Text(
-                      'Add Item',
-                      style: TextStyle(
-                        color: Colors.white,
-                        // fontSize: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
+          floatingActionButton: FloatingActionButton.extended(
+            heroTag: null,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MultiProvider(providers: [
+                      ChangeNotifierProvider.value(value: todoCollection),
+                      ChangeNotifierProvider.value(value: todoRepository),
+                    ], child: AddTodoPage()),
+                  ));
+            },
+            label: Text(
+              'Add Item',
+              style: TextStyle(
+                color: Colors.white,
+                // fontSize: 30.0,
               ),
-              color: _todoCollection.accentColor,
-              onPressed: () {},
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)),
+            ),
+            icon: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 30.0,
             ),
           ),
         ),
