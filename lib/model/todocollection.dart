@@ -54,7 +54,7 @@ class TodoCollection extends ChangeNotifier {
   }
 
   void addTodo(String title) {
-    Todo temp = Todo(title: 'title');
+    Todo temp = Todo(title: title);
     _todo.add(temp);
     updateTotalTasks();
     updateDoneCount();
