@@ -100,15 +100,29 @@ class TodoPage extends StatelessWidget {
             child: RaisedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 30.0,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                    SizedBox(width: 5.0),
+                    Text(
+                      'Add Item',
+                      style: TextStyle(
+                        color: Colors.white,
+                        // fontSize: 30.0,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               color: _todoCollection.accentColor,
               onPressed: () {},
-              shape: CircleBorder(),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
             ),
           ),
         ),
