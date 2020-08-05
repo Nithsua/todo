@@ -43,9 +43,7 @@ class MyApp extends StatelessWidget {
       home: ChangeNotifierProvider<TodoRepository>(
         create: (context) =>
             TodoRepository(todoCollectionList: todoCollectionList),
-        child: HomePage(
-          todoCollectionList: todoCollectionList,
-        ),
+        child: HomePage(),
       ),
     );
   }
