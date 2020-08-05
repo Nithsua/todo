@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 class Todo with ChangeNotifier {
   String _title;
   bool _isDone;
+  String _description;
 
   Todo({@required String title})
       : assert(title != null),
@@ -13,9 +14,17 @@ class Todo with ChangeNotifier {
 
   bool get isDone => _isDone;
 
+  String get description => _description;
+
   set changeTitle(String title) {
     if (title == _title) return;
     _title = title;
+    notifyListeners();
+  }
+
+  set changeDescription(String description) {
+    if (description == _description) return;
+    _description = description;
     notifyListeners();
   }
 
