@@ -3,6 +3,9 @@ import 'package:todo/model/todocollection.dart';
 
 class TodoRepository with ChangeNotifier {
   List<TodoCollection> _todoCollectionList;
+  static final List<TodoCollection> _defaultCollectionList = [
+    TodoCollection(title: 'Home')
+  ];
 
   int _totalTasks = 0;
   int _isDoneCount = 0;
@@ -62,4 +65,6 @@ class TodoRepository with ChangeNotifier {
   int get isDoneCount => _isDoneCount;
 
   List<TodoCollection> get todoCollectionList => _todoCollectionList;
+  static List<TodoCollection> get defaultCollectionList =>
+      _defaultCollectionList;
 }
