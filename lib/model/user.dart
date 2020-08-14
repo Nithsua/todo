@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class User {
-  String name;
-  Image photo;
+class User extends ChangeNotifier {
+  String fullName;
+  String displayName;
 }
