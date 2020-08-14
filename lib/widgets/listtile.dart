@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/localstore/localstore.dart';
 import 'package:todo/model/todo.dart';
 import 'package:todo/model/todocollection.dart';
 import 'package:todo/repo/todorepo.dart';
@@ -24,7 +25,10 @@ class CustomListTile extends StatelessWidget {
               todo.changeIsDone = value;
               Provider.of<TodoCollection>(context, listen: false)
                   .updateDoneCount();
-              Provider.of<TodoRepository>(context, listen: false).updateCount();
+              TodoRepository todoRepository =
+                  Provider.of<TodoRepository>(context, listen: false);
+              todoRepository.updateCount();
+              localStore.updateLocalData(todoRepository);
             },
           ),
         ),
@@ -33,7 +37,10 @@ class CustomListTile extends StatelessWidget {
           onPressed: () {
             Provider.of<TodoCollection>(context, listen: false)
                 .deleteTodo(_index);
-            Provider.of<TodoRepository>(context, listen: false).updateCount();
+            TodoRepository todoRepository =
+                Provider.of<TodoRepository>(context, listen: false);
+            todoRepository.updateCount();
+            localStore.updateLocalData(todoRepository);
           },
         ),
       ),
