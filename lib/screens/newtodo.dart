@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/localstore/localstore.dart';
+import 'package:todo/services/localstore.dart';
 import 'package:todo/model/todocollection.dart';
 import 'package:todo/repo/todorepo.dart';
 
