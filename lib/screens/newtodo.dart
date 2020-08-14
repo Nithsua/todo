@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/localstore/localstore.dart';
 import 'package:todo/model/todocollection.dart';
 import 'package:todo/repo/todorepo.dart';
 
@@ -41,6 +42,10 @@ class AddTodoPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           addTodo(_textEditingController.text);
+          TodoRepository todoRepository =
+              Provider.of<TodoRepository>(context, listen: false);
+          todoRepository.updateCount();
+          localStore.updateLocalData(todoRepository);
         },
         icon: Icon(Icons.add),
         label: Text('Add Item'),
