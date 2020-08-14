@@ -1,31 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/screens/homepage.dart';
 
-// List<TodoCollection> todoCollectionList = [
-//   TodoCollection(
-//     title: 'Home',
-//     todo: [
-//       Todo(title: 'Hai'),
-//       Todo(title: 'Hai'),
-//       Todo(title: 'Hai'),
-//     ],
-//   ),
-//   TodoCollection(
-//     title: 'Work',
-//     todo: [
-//       Todo(title: 'Hai'),
-//       Todo(title: 'Hai'),
-//       Todo(title: 'Hai'),
-//     ],
-//   ),
-// ];
-
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // TodoRepository todoRepository =
-  //     TodoRepository(todoCollectionList: todoCollectionList);
-  // localStore.updateLocalData(todoRepository);
-  // runApp(MaterialApp());
   runApp(MyApp());
 }
 
