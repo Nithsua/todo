@@ -1,17 +1,40 @@
 import 'package:flutter/foundation.dart';
 import 'package:todo/model/todocollection.dart';
 
-class TodoRepository extends ChangeNotifier {
-  final List<TodoCollection> _todoCollectionList;
-  int totalTasks = 0;
-  int isDoneCount = 0;
+class TodoRepository with ChangeNotifier {
+  List<TodoCollection> _todoCollectionList;
+
+  int _totalTasks = 0;
+  int _isDoneCount = 0;
 
   TodoRepository({@required List<TodoCollection> todoCollectionList})
       : _todoCollectionList = todoCollectionList {
     todoCollectionList.forEach((element) {
-      totalTasks += element.totalTasks;
-      isDoneCount += element.isDoneCount;
+      _totalTasks += element.totalTasks;
+      _isDoneCount += element.isDoneCount;
     });
+  }
+
+  TodoRepository.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
+      _todoCollectionList = [TodoCollection(title: 'Home')];
+    } else {
+      _isDoneCount = json["isDoneCount"];
+      _totalTasks = json['totalTasks'];
+      var tempTodo = json['todoCollectionList'] as List;
+      _todoCollectionList =
+          tempTodo.map((i) => TodoCollection.fromJson(i)).toList();
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> tempTodoCollectionList =
+        todoCollectionList.map((i) => i.toJson()).toList();
+    return {
+      "todoCollectionList": tempTodoCollectionList,
+      "isDoneCount": isDoneCount,
+      "totalTasks": totalTasks,
+    };
   }
 
   void addCollection(TodoCollection todoCollection) {
@@ -21,18 +44,22 @@ class TodoRepository extends ChangeNotifier {
 
   void deleteCollection(int index) {
     _todoCollectionList.removeAt(index);
+
     notifyListeners();
   }
 
   void updateCount() {
-    totalTasks = 0;
-    isDoneCount = 0;
+    _totalTasks = 0;
+    _isDoneCount = 0;
     todoCollectionList.forEach((element) {
-      totalTasks += element.totalTasks;
-      isDoneCount += element.isDoneCount;
+      _totalTasks += element.totalTasks;
+      _isDoneCount += element.isDoneCount;
     });
     notifyListeners();
   }
+
+  int get totalTasks => _totalTasks;
+  int get isDoneCount => _isDoneCount;
 
   List<TodoCollection> get todoCollectionList => _todoCollectionList;
 }
