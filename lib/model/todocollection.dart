@@ -9,11 +9,33 @@ class TodoCollection extends ChangeNotifier {
   int _totalTasks;
   ColorSwatch _accentColor = Colors.blue;
 
-  TodoCollection({@required String title, List<Todo> todo})
-      : assert(title != null),
+  TodoCollection({
+    @required String title,
+    List<Todo> todo,
+    int isDoneCount,
+  })  : assert(title != null),
         _title = title,
         _todo = todo ?? [],
+        _isDoneCount = isDoneCount ?? 0,
         _totalTasks = todo.length;
+
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> tempTodo = todo.map((i) => i.toJson()).toList();
+    return {
+      "title": title,
+      "todo": tempTodo,
+      "isDoneCount": isDoneCount,
+      "totalTasks": totalTasks,
+    };
+  }
+
+  TodoCollection.fromJson(Map<String, dynamic> json) {
+    _title = json["title"];
+    _isDoneCount = json["isDoneCount"];
+    _totalTasks = json['totalTasks'];
+    var tempTodo = json['todo'] as List;
+    _todo = tempTodo.map((i) => Todo.fromJson(i)).toList();
+  }
 
   String get title => _title;
 
