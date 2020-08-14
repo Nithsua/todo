@@ -5,10 +5,23 @@ class Todo with ChangeNotifier {
   bool _isDone;
   String _description;
 
-  Todo({@required String title})
+  Todo({@required String title, String description})
       : assert(title != null),
         _title = title,
+        _description = description ?? '',
         _isDone = false;
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "isDone": isDone,
+        "description": description,
+      };
+
+  Todo.fromJson(Map<String, dynamic> json) {
+    _title = json['title'];
+    _isDone = json['isDone'];
+    _description = json['description'];
+  }
 
   String get title => _title;
 
