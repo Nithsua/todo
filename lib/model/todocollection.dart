@@ -17,7 +17,7 @@ class TodoCollection extends ChangeNotifier {
         _title = title,
         _todo = todo ?? [],
         _isDoneCount = isDoneCount ?? 0,
-        _totalTasks = todo.length;
+        _totalTasks = (todo ?? []).length;
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> tempTodo = todo.map((i) => i.toJson()).toList();
