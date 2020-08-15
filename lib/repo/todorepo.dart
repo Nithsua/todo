@@ -47,7 +47,6 @@ class TodoRepository with ChangeNotifier {
 
   void deleteCollection(int index) {
     _todoCollectionList.removeAt(index);
-
     notifyListeners();
   }
 
