@@ -17,11 +17,15 @@ class User extends ChangeNotifier {
         "fullName": _fullName,
         "displayName": _displayName,
       };
+
   String get fullName => _fullName;
 
   String get displayName => _displayName;
 
-  set setFullName(String fullName) => _fullName = fullName;
-
-  set setDisplayName(String displayName) => _displayName = displayName;
+  void setName(String fullName) {
+    print('set');
+    _fullName = fullName;
+    _displayName = _fullName.split(' ')[0];
+    notifyListeners();
+  }
 }
