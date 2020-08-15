@@ -48,7 +48,7 @@ class LocalStore {
   updateUserDate(User user) async {
     _pref = await SharedPreferences.getInstance();
     String json = jsonEncode(user.toJson());
-    _pref.setString('data', json);
+    _pref.setString('user', json);
   }
 }
 
