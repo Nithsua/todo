@@ -6,6 +6,12 @@ import 'package:todo/screens/todopage.dart';
 import 'package:todo/widgets/progressbar.dart';
 
 class TodoCollectionCard extends StatelessWidget {
+  final int _collectionIndex;
+
+  TodoCollectionCard({@required int collectionIndex})
+      : assert(collectionIndex != null),
+        _collectionIndex = collectionIndex;
+
   @override
   Widget build(BuildContext context) {
     var todoRepository = Provider.of<TodoRepository>(context);
@@ -26,6 +32,7 @@ class TodoCollectionCard extends StatelessWidget {
                     ],
                     builder: (context, _) => TodoPage(
                       todoCollection: todoCollection,
+                      collectionIndex: _collectionIndex,
                     ),
                   ),
                 ),
