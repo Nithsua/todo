@@ -32,16 +32,19 @@ class CustomListTile extends StatelessWidget {
             },
           ),
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete_outline),
-          onPressed: () {
-            Provider.of<TodoCollection>(context, listen: false)
-                .deleteTodo(_index);
-            TodoRepository todoRepository =
-                Provider.of<TodoRepository>(context, listen: false);
-            todoRepository.updateCount();
-            localStore.updateLocalData(todoRepository);
-          },
+        trailing: Tooltip(
+          message: 'Delete',
+          child: IconButton(
+            icon: Icon(Icons.delete_outline),
+            onPressed: () {
+              Provider.of<TodoCollection>(context, listen: false)
+                  .deleteTodo(_index);
+              TodoRepository todoRepository =
+                  Provider.of<TodoRepository>(context, listen: false);
+              todoRepository.updateCount();
+              localStore.updateLocalData(todoRepository);
+            },
+          ),
         ),
       ),
     );
